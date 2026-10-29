@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><title>Signed in · hansa #482 test</title>
+<h1>Signed in</h1><p id="r"></p>
+<script>
+const r = JSON.parse(sessionStorage.getItem("hansa482") || "null")
+document.getElementById("r").textContent = r ? "submitted" : "not signed in"
+</script>

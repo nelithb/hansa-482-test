@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Sign in · hansa #482 test</title></head>
+<body>
+<!-- throwaway test sign-in for agentmall.sh #482. nothing is sent anywhere: on submit the page keeps
+     only a sha-256 of the username and the password's length in this tab, then moves to the signed-in page -->
+<h1>Sign in</h1>
+<form id="login" method="post" action="#">
+  <label>Email <input id="username" name="username" type="email" autocomplete="username" required></label><br>
+  <label>Password <input id="password" name="password" type="password" autocomplete="current-password" required></label><br>
+  <button type="submit">Sign in</button>
+</form>
+<script>
+document.getElementById("login").addEventListener("submit", async (e) => {
+  e.preventDefault()
+  const u = document.getElementById("username").value
+  const p = document.getElementById("password").value
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(u))
+  const hex = [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("")
+  sessionStorage.setItem("hansa482", JSON.stringify({ usernameHash: hex, passwordLength: p.length }))
+  location.href = "signed-in.html"
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><title>Connecting · hansa #482 test</title>
+<p>Handing the 1Password connection back to the test running on this computer…</p>
+<script>
+// oauth return page for the #482 test. it only forwards the query string and fragment to the
+// script listening on this same computer, so the code never touches any other server
+location.replace("http://127.0.0.1:8482/callback" + location.search + location.hash)
+</script>
